@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert } from "react-native";
+import { Alert, StatusBar, View, StyleSheet, Dimensions } from "react-native";
 import Loading from "./Loading";
 import * as Location from "expo-location";
 import axios from "axios";
@@ -37,6 +37,19 @@ export default class extends React.Component {
   }
   render() {
     const { isLoading, condition, temp } = this.state;
-    return isLoading? <Loading/> : <Weather condition={condition} temp={Math.round(temp)}/>
+    return (
+      <View style={styles.container}>
+        <StatusBar barStyle="dark-content" backgroundColor={'transparent'} translucent={true} />
+        {isLoading? <Loading/> : <Weather condition={condition} temp={Math.round(temp)}/>}
+      </View>
+    );
   }
 }
+
+
+const styles = StyleSheet.create({
+  container: {
+    height: Dimensions.get('screen').height,
+    width: Dimensions.get('screen').width
+  }
+});
